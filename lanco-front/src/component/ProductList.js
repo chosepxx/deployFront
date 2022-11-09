@@ -47,7 +47,7 @@ export function ProductList() {
     { field: "id", headerName: "ID", width: 40 },
     {
       field: "descripcion",
-      headerName: "descripcion",
+      headerName: "Descripcion",
       type: "text",
       width: 90,
     },

@@ -33,7 +33,7 @@ function NavBar() {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href={"http://google.com"}>
+              <a className="nav-link" href={"/registros"}>
                 Registos
               </a>
             </li>

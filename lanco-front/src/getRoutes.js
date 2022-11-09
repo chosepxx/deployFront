@@ -11,7 +11,7 @@ function GetRoutes() {
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Record_List />} />
+        <Route path="/registros" element={<Record_List />} />
         <Route path="/tabla" element={<DataTableMUI />} />
         <Route path="/productos" element={<ProductList />} />
         <Route path="/productForm" element={<ProductForm />} />
