@@ -8,44 +8,83 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import "../public/css/styles.css";
 import ReplayIcon from "@mui/icons-material/Replay";
 
 export default function DataTableMUI(props) {
   const [rows, setRows] = React.useState(props.rows);
+  const [columns, setColumns] = React.useState(props.columns);
   const [selectedRows, setSelectedRows] = React.useState([]);
 
   React.useEffect(() => {
     setRows(props.rows);
-  }, [rows]);
+  }, []);
+
+  React.useEffect(() => {
+    setColumns([
+      ...columns,
+      {
+        field: "Show",
+        type: "actions",
+        width: 100,
+        renderCell: (params) => (
+          <div>
+            <IconButton
+              color="primary"
+              component="label"
+              onClick={(event) => {
+                showRow(event, params.row);
+              }}
+            >
+              <FactCheckIcon />
+            </IconButton>
+            <IconButton
+              color="primary"
+              component="label"
+              onClick={(event) => {
+                editRow(event, params.row);
+              }}
+            >
+              <FileCopyIcon />
+            </IconButton>
+            <IconButton
+              color="primary"
+              component="label"
+              onClick={(event) => {
+                deleteRow(params.row);
+              }}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </div>
+        ),
+      },
+    ]);
+  }, []);
 
   const showRow = (event, row) => {
     console.log(`Show ${JSON.stringify(row)}`);
   };
 
   const editRow = (event, row) => {
-    console.log(`Edit ${JSON.stringify(row)}`);
+    props.editRow(row);
   };
 
-  const deleteRow = (event, row) => {
-    console.log(`Delete ${JSON.stringify(row)}`);
+  const deleteRow = (row) => {
     setRows((prevRows) => {
       return prevRows.filter((element) => element.id !== row.id);
     });
+    props.deleteRow(row.id);
   };
 
   const addRow = () => {
-    console.log(`Add new row ...`);
+    props.addNew();
   };
-
   const deleteRows = () => {
     console.log(`Delete rows ...`);
-    // console.log(selectedRows);
-    //call api function (delete method).
-    //deleteApi(selectedRows);
-
-    let newRows = props.rows.filter((rows) => {
+    let newRows = rows.filter((rows) => {
       let res = selectedRows.find((selectedRows) => {
-        return selectedRows.id === props.rows.id;
+        return selectedRows.id === rows.id;
       });
       return res == undefined;
     });
@@ -69,7 +108,7 @@ export default function DataTableMUI(props) {
     <div
       style={{
         margin: "auto",
-        width: "80%",
+        width: "70%",
         padding: "10px",
       }}
     >
@@ -81,12 +120,12 @@ export default function DataTableMUI(props) {
             onClick={addRow}
             startIcon={<AddCircleIcon />}
           >
-            Add a row
+            Agregar nuevo
           </Button>
         </Stack>
         <DataGrid
           autoHeight
-          columns={props.columns}
+          columns={columns}
           rows={rows}
           pageSize={10}
           rowsPerPageOptions={[5]}
@@ -108,7 +147,7 @@ export default function DataTableMUI(props) {
             onClick={deleteRows}
             startIcon={<DeleteIcon />}
           >
-            Delete rows
+            Borrar filas
           </Button>
         </Stack>
       </Box>

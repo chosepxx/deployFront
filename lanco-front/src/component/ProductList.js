@@ -5,11 +5,13 @@ import FactCheckIcon from "@mui/icons-material/FactCheck";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { getProductos, deleteProduct } from "../services/ProductService";
+import { Routes, Route, useNavigate } from "react-router-dom";
+
 export function ProductList() {
   const [rows, setRows] = useState([]);
   const [update, setUpdate] = useState([]);
   const [products, setProducts] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     getProductos().then((product) => {
       const newColumns = product.map((item) => {
@@ -27,16 +29,18 @@ export function ProductList() {
     console.log(`Show ${JSON.stringify(row)}`);
   };
 
-  const editRow = (event, row) => {
-    console.log(`Edit ${JSON.stringify(row)}`);
+  const editRow = (row) => {
+    console.log("editando ", row);
+    //llamar editar
   };
 
-  const deleteRow = (event, row) => {
-    console.log(`Delete ${row.id}`);
-    console.log(deleteProduct(row.id));
-    setRows((prevRows) => {
-      return prevRows.filter((element) => element.id !== row.id);
-    });
+  const addNew = () => {
+    console.log("anadiendo ");
+    navigate("/productForm");
+  };
+
+  const deleteRow = (row) => {
+    console.log(deleteProduct(row));
   };
 
   const columns = [
@@ -59,51 +63,20 @@ export function ProductList() {
       type: "number",
       width: 90,
     },
-    {
-      field: "Show",
-      type: "actions",
-      width: 100,
-      renderCell: (params) => (
-        <div>
-          <IconButton
-            color="primary"
-            component="label"
-            onClick={(event) => {
-              showRow(event, params.row);
-            }}
-          >
-            <FactCheckIcon />
-          </IconButton>
-          <IconButton
-            color="primary"
-            component="label"
-            onClick={(event) => {
-              editRow(event, params.row);
-            }}
-          >
-            <FileCopyIcon />
-          </IconButton>
-          <IconButton
-            color="primary"
-            component="label"
-            onClick={(event) => {
-              deleteRow(event, params.row);
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </div>
-      ),
-    },
   ];
 
-  const refreshData = () => {
-    return <DataTableMUI rows={rows} columns={columns}></DataTableMUI>;
-  };
   return (
     <div>
+      <h1>Listado de Productos</h1>
       {rows.length > 0 ? (
-        <DataTableMUI rows={rows} columns={columns}></DataTableMUI>
+        <DataTableMUI
+          rows={rows}
+          columns={columns}
+          deleteRow={deleteRow}
+          editRow={editRow}
+          showRow={showRow}
+          addNew={addNew}
+        ></DataTableMUI>
       ) : null}
     </div>
   );

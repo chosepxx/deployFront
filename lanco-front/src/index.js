@@ -5,6 +5,8 @@ import App from "./App";
 import { Record_List } from "./component/Record_List";
 import reportWebVitals from "./reportWebVitals";
 import GetRoutes from "./getRoutes";
+import "bootstrap/dist/css/bootstrap.css";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
