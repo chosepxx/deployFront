@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import {getRegister} from "../services/RegisterServices"
+import {getRegister, eliminar} from "../services/RegisterServices"
 import { RegisterModel } from "../models/register";
 import { getProductos } from "../services/ProductService";
 import { getCLient } from "../services/ClientService";
 import { getEmpleado } from "../services/EmpleadoService";
+import DataTableMUI from "./table";
 
 export function Record_List() {
 
@@ -12,28 +13,57 @@ export function Record_List() {
     const [product, setProduct] = useState([]);
     const [client, setClient] = useState([]);
     const [empleado, setEmpleado] = useState([]);
+    const [rows, setRows] = useState([]);
 
     useEffect(() => {
-        getRegister().then((record) => {
-            setRecord(record);
-            console.log("maeeeee")
+        getRegister().then((product) => {
+          const newColumns = product.map((item) => {
+            const { id_registro: id, ...rest } = item;
+            return { id, ...rest };
+          });
+    
+          console.log(newColumns);
+          setRows(newColumns);
         });
-        getProductos().then((product) => {
-            setProduct(product);
-            console.log("ujale")
-            
-        });
-        getEmpleado().then((client) => {
-            setEmpleado(client);
-            console.log("mmeme")
-            
-        });
-        getCLient().then((client) => {
-            setClient(client);
-            console.log("mmeme")
-            
-        });
-    }, []);
+      }, []);
+
+    const showRow = (event, row) => {
+        console.log(`Show ${JSON.stringify(row)}`);
+      };
+    
+      const editRow = (row) => {
+        console.log("editando ", row);
+        //llamar editar
+      };
+    
+      const addNew = () => {
+        console.log("anadiendo ");
+      //  navigate("/productForm");
+      };
+    
+      const deleteRow = (row) => {
+     //   console.log(deletePr(row));
+      };
+    
+      const columns = [
+        { field: "id_registro", headerName: "ID", width: 40 },
+        {
+          field: "fecha_compra",
+          headerName: "fecha de compra",
+          type: "text",
+          width: 90,
+        },
+        { field: "id_cliente", headerName: "Nombre cliente", width: 130 },
+        { field: "id_empleado", headerName: "Nombre empleado", width: 130 },
+        { field: "color_producto", headerName: "color_producto", width: 90 },
+        { field: "base", headerName: "base", width: 90 },
+        { field: "acabado", headerName: "acabado", width: 90 },
+        { field: "formula_color", headerName: "formula_color", type: "number", width: 90 },
+        { field: "tamano_envase", headerName: "tamano_envase",
+          type: "number",
+          width: 90,
+        },
+      ];
 
 {record.map((pp)=>
     
@@ -68,45 +98,26 @@ export function Record_List() {
        }
      }
 
+     function deleteRegister(id){
+        console.log("HOLAAAAAA"+id)
+        eliminar(id)
+
+
+     }
+
     return (
-        <React.Fragment>
-            <div className="container-fluid col-md-8 mt-5">
-                <h1>HOLIIII</h1>
-                <div className="card mt-1">
-                    <div className="card-body">
-                        <table className="table table-sm">
-                            <thead>
-                                <tr>
-                                    <th>fecha_compra</th>
-                                    <th>Cliente</th>
-                                    <th>Empleado</th>
-                                    <th>Producto</th>
-                                    <th>base</th>
-                                    <th>acabado</th>
-                                    <th>Formula de color</th>
-                                    <th>Tamano del envase</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {record.map((data) => (
-                                    <tr>
-                                        <td>{data.fecha_compra}</td>
-                                        <td>{data.nombre_Cliente}</td>
-                                        <td>{data.nombre_empleado}</td>
-                                        <td>{data.color_producto}</td>
-                                        <td>{data.base}</td>
-                                        <td>{data.acabado}</td>
-                                        <td>{data.formula_color}</td>
-                                        <td>{data.tamano_envase}</td>
-                                        
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-               
-            </div>
-        </React.Fragment>
+        <div>
+      <h1>Listado de Productos</h1>
+      {rows.length > 0 ? (
+        <DataTableMUI
+          rows={rows}
+          columns={columns}
+          deleteRow={deleteRow}
+          editRow={editRow}
+          showRow={showRow}
+          addNew={addNew}
+        ></DataTableMUI>
+      ) : null}
+    </div>
     );
 }
