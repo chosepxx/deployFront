@@ -5,7 +5,7 @@ import FactCheckIcon from "@mui/icons-material/FactCheck";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { getProductos, deleteProduct } from "../services/ProductService";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function ProductList() {
   const [rows, setRows] = useState([]);
@@ -31,7 +31,12 @@ export function ProductList() {
 
   const editRow = (row) => {
     console.log("editando ", row);
-    //llamar editar
+
+    navigate("/productEdit", {
+      state: {
+        id: row.id,
+      },
+    });
   };
 
   const addNew = () => {
