@@ -39,12 +39,11 @@ export function eliminar(id) {
 }
 
 export function buscar_id(id) {
-  var object = { id_registro: id };
+
   const options = {
     method: "GET",
     withCredentials: false,
-    url: "http://localhost/proyecto-lanco-codigo/controller_registro.php",
-    data: object,
+    url: "http://localhost/proyecto-lanco-codigo/controller_registro.php?id="+id,
   };
 
   return axios

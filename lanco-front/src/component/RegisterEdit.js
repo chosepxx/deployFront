@@ -4,13 +4,12 @@ import { getCLient } from "../services/ClientService";
 import { getEmpleado } from "../services/EmpleadoService";
 import { RegisterModel } from "../models/register";
 import { buscar_id } from "../services/RegisterServices";
-import { agregar } from "../services/RegisterServices";
 import Select from "react-select";
 import moment from "moment";
 import { useParams, useLocation } from "react-router-dom";
 
-function RegisterForm() {
-  const [record, setRecord] = useState([RegisterModel]);
+function RegisterEdit() {
+  const [record, setRecord] = useState(RegisterModel);
   const [product, setProduct] = useState([]);
   const [client, setClient] = useState([]);
   const [empleado, setEmpleado] = useState([]);
@@ -31,15 +30,16 @@ function RegisterForm() {
     getCLient().then((client) => {
       setClient(client);
     });
-    if (id) {
-      console.log("mae si")
-      buscar_id(id).then((record) => {
+
+   
+      buscar_id(id.id).then((record) => {
         setRecord(record);
       });
-    }
+ 
 
   }, []);
   
+
   const empleadoC = () => {
     return empleado.map((data) => ({
       value: data.id_empleado,
@@ -47,7 +47,7 @@ function RegisterForm() {
     }));
   };
 
-  console.log(record[0]["id_producto"])
+  
 
   const clientC = () => {
     return client.map((data) => ({
@@ -82,10 +82,10 @@ function RegisterForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     record.fecha_compra=moment().format("YY-MM-DD");
-    agregar(record);
+  //  agregar(record);
     
   };
-  
+
 
   return (
     <React.Fragment>
@@ -141,7 +141,7 @@ function RegisterForm() {
                     name="acabado"
                     placeholder=""
                     onChange={handleChange}
-                    value={record[0]["acabado"]}
+                    value={record.acabado}
                   ></input>
                 </div>
                 <div className="form-group">
@@ -183,4 +183,4 @@ function RegisterForm() {
   );
 }
 
-export default RegisterForm;
+export default RegisterEdit;

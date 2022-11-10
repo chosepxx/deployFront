@@ -49,17 +49,26 @@ export function Record_List() {
         console.log(`Show ${JSON.stringify(row)}`);
       };
     
+
       const editRow = (row) => {
-      
-       //console.log("editando... ", row.id);
-      
-       
-      // <Link to={`/actualizar/${row.id}`}></Link>
-      };
+        console.log("ushhhsusb")
+        navigate("/actualizar", {
+          state: {
+            id: row.id,
+          },
+        });
+      }
     
       const addNew = () => {
         console.log("anadiendo ");
-        navigate("/registerForm");
+    //    navigate("/registerForm");
+
+        navigate("/registerForm", {
+          state: {
+            id: null,
+          },
+        });
+        
       };
     
       const deleteRow = (row) => {

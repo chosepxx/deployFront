@@ -7,6 +7,7 @@ import { ProductList } from "./component/ProductList";
 import ProductForm from "./component/ProductForm";
 import FormPropsTextFields from "./component/RegisterForm";
 import ProductEdit from "./component/ProductEdit";
+import RegisterEdit from "./component/RegisterEdit";
 import NavBar from "./component/navbar";
 function GetRoutes() {
   return (
@@ -18,7 +19,7 @@ function GetRoutes() {
         <Route path="/productos" element={<ProductList />} />
         <Route path="/productForm" element={<ProductForm />} />
         <Route path="/registerForm" element={<FormPropsTextFields />} />
-        <Route path="actualizar/:id" element={<FormPropsTextFields />} />
+        <Route path="/actualizar" element={<FormPropsTextFields />} />
         <Route path="/productEdit" element={<ProductEdit />} />
       </Routes>
     </Router>
