@@ -7,6 +7,8 @@ import { getCLient } from "../services/ClientService";
 import { getEmpleado } from "../services/EmpleadoService";
 import DataTableMUI from "./table";
 
+
+
 export function Record_List() {
 
     const [record, setRecord] = useState([RegisterModel]);
@@ -14,6 +16,7 @@ export function Record_List() {
     const [client, setClient] = useState([]);
     const [empleado, setEmpleado] = useState([]);
     const [rows, setRows] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getRegister().then((product) => {
@@ -21,8 +24,23 @@ export function Record_List() {
             const { id_registro: id, ...rest } = item;
             return { id, ...rest };
           });
-    
-          console.log(newColumns);
+
+          getProductos().then((product) => {
+            setProduct(product);
+            console.log("ujale")
+            
+        });
+        getEmpleado().then((client) => {
+            setEmpleado(client);
+            console.log("mmeme")
+            
+        });
+        getCLient().then((client) => {
+            setClient(client);
+            console.log("mmeme")
+            
+        });
+
           setRows(newColumns);
         });
       }, []);
@@ -38,12 +56,42 @@ export function Record_List() {
     
       const addNew = () => {
         console.log("anadiendo ");
-      //  navigate("/productForm");
+        navigate("/registerForm");
       };
     
       const deleteRow = (row) => {
-     //   console.log(deletePr(row));
+        eliminar(row);
       };
+
+      for (var rec of rows) { 
+
+        for (var prod of product) { 
+         if (rec.id_producto === prod.id_producto) { 
+         rec.nombre_producto=prod.color_pintura
+        }
+       }
+     }
+ 
+     for (var rec of rows) { 
+ 
+         for (var cl of client) { 
+          if (rec.id_cliente === cl.id_cliente) { 
+          rec.nombre_cliente=cl.nombre
+          console.log("HOLIIIIIIIIII"+rec.nombre_cliente)
+         }
+        }
+      }
+ 
+      for (var rec of rows) { 
+ 
+         for (var em of empleado) { 
+          if (rec.id_empleado === em.id_empleado) { 
+          rec.nombre_empleado=em.nombre+" "+em.apellidos;
+         }
+        }
+      }
+ 
+ 
     
       const columns = [
         { field: "id_registro", headerName: "ID", width: 40 },
@@ -53,9 +101,9 @@ export function Record_List() {
           type: "text",
           width: 90,
         },
-        { field: "id_cliente", headerName: "Nombre cliente", width: 130 },
-        { field: "id_empleado", headerName: "Nombre empleado", width: 130 },
-        { field: "color_producto", headerName: "color_producto", width: 90 },
+        { field: "nombre_cliente", headerName: "Nombre cliente", width: 130 },
+        { field: "nombre_empleado", headerName: "Nombre empleado", width: 130 },
+        { field: "nombre_producto", headerName: "color_producto", width: 90 },
         { field: "base", headerName: "base", width: 90 },
         { field: "acabado", headerName: "acabado", width: 90 },
         { field: "formula_color", headerName: "formula_color", type: "number", width: 90 },

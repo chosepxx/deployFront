@@ -5,13 +5,14 @@ export function RegisterModel(){
         fecha_compra: '',
         id_cliente: 0,
         id_producto:0,
+        id_empleado:0,
         base: '',
         acabado:'',
         formula_color:'',
         tamano_envase:'',
-        nombre_Cliente: '',
+        nombre_cliente: '',
         nombre_empleado: '',
-        color_producto:''
+        nombre_producto:''
         
     }
 
