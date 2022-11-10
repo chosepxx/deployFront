@@ -3,7 +3,7 @@ import { getProductos } from "../services/ProductService";
 import { getCLient } from "../services/ClientService";
 import { getEmpleado } from "../services/EmpleadoService";
 import { RegisterModel } from "../models/register";
-import { buscar_id } from "../services/RegisterServices";
+import { actualizar, buscar_id } from "../services/RegisterServices";
 import { agregar } from "../services/RegisterServices";
 import Select from "react-select";
 import moment from "moment";
@@ -11,14 +11,13 @@ import { useParams, useLocation } from "react-router-dom";
 
 function RegisterForm() {
   const [record, setRecord] = useState([RegisterModel]);
+  const [recordAdd, setRecordAdd] = useState(RegisterModel);
   const [product, setProduct] = useState([]);
   const [client, setClient] = useState([]);
   const [empleado, setEmpleado] = useState([]);
   const { state } = useLocation();
   const { id } = state; // Read values passed on state
-  const [visible, setVisible] = useState(false);
-
-  
+ 
 
   useEffect(() => {
     getProductos().then((product) => {
@@ -36,18 +35,18 @@ function RegisterForm() {
       buscar_id(id).then((record) => {
         setRecord(record);
       });
+       setRecordAdd(record[0])
     }
 
   }, []);
-  
+
+ 
   const empleadoC = () => {
     return empleado.map((data) => ({
       value: data.id_empleado,
       label: data.nombre + " " + data.apellidos,
     }));
   };
-
-  console.log(record[0]["id_producto"])
 
   const clientC = () => {
     return client.map((data) => ({
@@ -67,23 +66,29 @@ function RegisterForm() {
   const handleChangeSelect = (event, name) => {
     const value = event.value;
     console.log(value);
-    setRecord({...record, [name]: value });
+    setRecordAdd({...recordAdd, [name]: value });
     
   };
 
   const handleChange = (event) => {
     const value = event.target.value;
     const name = event.target.name;
-    console.log(value);
-    setRecord({...record, [name]: value });
-    console.log(record[name])
+    setRecordAdd({...recordAdd, [name]: value });
+  
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    record.fecha_compra=moment().format("YY-MM-DD");
-    agregar(record);
-    
+    if(id){
+      actualizar(recordAdd);
+    }
+    else{
+
+      recordAdd.fecha_compra=moment().format("YY-MM-DD");
+      agregar(recordAdd);
+
+    }
+ 
   };
   
 
@@ -94,14 +99,14 @@ function RegisterForm() {
           <div className="card-body">
             <h5 className="card-title">Registro de pintura preparada</h5>
             <br></br>
-            <form onSubmit={handleSubmit} id="form">
-              <fieldset>
-      
+            <form onSubmit={handleSubmit} >
+           
                 <div className="form-group">
                   <label htmlFor="">Nombre del empleado</label>
                   <Select
                     options={empleadoC()}
                     onChange={(event) => handleChangeSelect(event, "id_empleado")}
+                    defaultValue={recordAdd.id_empleado}
                  
                   />
                 </div>
@@ -119,7 +124,7 @@ function RegisterForm() {
                   <Select
                     options={productoC()}
                     onChange={(event) => handleChangeSelect(event, "id_producto")}
-          
+
                   />
                 </div>
                 <div className="form-group">
@@ -130,7 +135,8 @@ function RegisterForm() {
                     name="base"
                     placeholder=""
                     onChange={handleChange}
-                    value={record.base}
+                    defaultValue={recordAdd.base}
+                    hidden={false}
                   ></input>
                 </div>
                 <div className="form-group">
@@ -141,7 +147,7 @@ function RegisterForm() {
                     name="acabado"
                     placeholder=""
                     onChange={handleChange}
-                    value={record[0]["acabado"]}
+                    defaultValue={recordAdd.acabado}
                   ></input>
                 </div>
                 <div className="form-group">
@@ -152,12 +158,12 @@ function RegisterForm() {
                     name="formula_color"
                     placeholder="cod_ko4"
                     onChange={handleChange}
-                    value={record.formula_color}
+                    defaultValue={recordAdd.formula_color}
                   ></input>
                 </div>
                 <div className="form-group">
                   <label htmlFor="">Tamaño del envase</label>
-                  <select name="tamano_envase" onChange={handleChange} className="form-control" value={record.tamano_envase}>
+                  <select name="tamano_envase" onChange={handleChange} className="form-control" value={recordAdd.tamano_envase}>
                     <option value="Cuarto del galón">Cuarto del galón</option>
                     <option value="Medio de galón">Cuarto de galón</option>
                     <option value="Galón">Galón</option>
@@ -174,7 +180,6 @@ function RegisterForm() {
                     Guardar
                   </button>
                 </div>
-              </fieldset>
             </form>
           </div>
         </div>

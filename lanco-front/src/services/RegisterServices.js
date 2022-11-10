@@ -78,3 +78,23 @@ export function agregar(registro) {
       console.error(error);
     });
 }
+
+export function actualizar(registro) {
+  console.log(registro.id_cliente+"  "+registro.fecha_compra)
+  const options = {
+    method: "PUT",
+    withCredentials: false,
+    url: "http://localhost/proyecto-lanco-codigo/controller_registro.php",
+    data: registro,
+  };
+
+  return axios
+    .request(options)
+    .then((response) => {
+      const res = response.data;
+      return res;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}
