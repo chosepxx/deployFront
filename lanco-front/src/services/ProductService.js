@@ -77,3 +77,22 @@ export function addProduct(datas) {
       console.error(error);
     });
 }
+
+export function editProduct(datas) {
+  const options = {
+    method: "PUT",
+    withCredentials: false,
+    url: "http://localhost/proyecto-lanco-codigo/controller_productos.php",
+    data: datas,
+  };
+  console.log(options);
+  return axios
+    .request(options)
+    .then((response) => {
+      const res = response.data;
+      return res;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}
