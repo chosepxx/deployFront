@@ -18,6 +18,25 @@ export function getProductos() {
     });
 }
 
+export function getProductoData(id) {
+  const options = {
+    method: "GET",
+    withCredentials: false,
+    url:
+      "http://localhost/proyecto-lanco-codigo/controller_productos.php?id=" +
+      id,
+  };
+
+  return axios
+    .request(options)
+    .then((response) => {
+      const res = response.data;
+      return res;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}
 export function deleteProduct(id) {
   const url = "http://localhost/proyecto-lanco-codigo/controller_productos.php";
   const options = {
