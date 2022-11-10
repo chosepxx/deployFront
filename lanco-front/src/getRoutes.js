@@ -17,7 +17,7 @@ function GetRoutes() {
         <Route path="/productos" element={<ProductList />} />
         <Route path="/productForm" element={<ProductForm />} />
         <Route path="/registerForm" element={<FormPropsTextFields />} />
-        <Route path="actualizar:/id" element={<FormPropsTextFields />} />
+        <Route path="actualizar/:id" element={<FormPropsTextFields />} />
       </Routes>
     </Router>
   );

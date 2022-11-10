@@ -37,6 +37,7 @@ function RegisterForm() {
     }
 
     if (id) {
+   
       buscar_id(id).then((record) => {
         setRecord(record);
       });
@@ -106,7 +107,7 @@ function RegisterForm() {
                   <Select
                     options={empleadoC()}
                     onChange={(event) => handleChangeSelect(event, "id_empleado")}
-                    value={record.id_empleado}
+                 
                   />
                 </div>
                 <div className="form-group">
@@ -115,6 +116,7 @@ function RegisterForm() {
                     options={clientC()}
                     onChange={(event) => handleChangeSelect(event, "id_cliente")}
                     name="id_cliente"
+                   
                   />
                 </div>
                 <div className="form-group">
@@ -122,7 +124,7 @@ function RegisterForm() {
                   <Select
                     options={productoC()}
                     onChange={(event) => handleChangeSelect(event, "id_producto")}
-                    name="id_producto"
+          
                   />
                 </div>
                 <div className="form-group">
@@ -133,6 +135,7 @@ function RegisterForm() {
                     name="base"
                     placeholder=""
                     onChange={handleChange}
+                    value={record.base}
                   ></input>
                 </div>
                 <div className="form-group">
@@ -143,6 +146,7 @@ function RegisterForm() {
                     name="acabado"
                     placeholder=""
                     onChange={handleChange}
+                    value={record.acabado}
                   ></input>
                 </div>
                 <div className="form-group">
@@ -153,11 +157,12 @@ function RegisterForm() {
                     name="formula_color"
                     placeholder="cod_ko4"
                     onChange={handleChange}
+                    value={record.formula_color}
                   ></input>
                 </div>
                 <div className="form-group">
                   <label htmlFor="">Tamaño del envase</label>
-                  <select name="tamano_envase" onChange={handleChange} className="form-control">
+                  <select name="tamano_envase" onChange={handleChange} className="form-control" value={record.tamano_envase}>
                     <option value="Cuarto del galón">Cuarto del galón</option>
                     <option value="Medio de galón">Cuarto de galón</option>
                     <option value="Galón">Galón</option>

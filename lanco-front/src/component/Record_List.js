@@ -50,8 +50,11 @@ export function Record_List() {
       };
     
       const editRow = (row) => {
-        console.log("editando ", row);
-        //llamar editar
+      
+       //console.log("editando... ", row.id);
+      
+       
+      // <Link to={`/actualizar/${row.id}`}></Link>
       };
     
       const addNew = () => {
