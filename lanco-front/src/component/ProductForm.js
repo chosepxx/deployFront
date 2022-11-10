@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { addProduct } from "../services/ProductService";
+import { addProduct, editProduct } from "../services/ProductService";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { getCurrentDate } from "./utils/date";
-
+import { useLocation } from "react-router-dom";
+import { getProductoData } from "../services/ProductService";
 const initialValues = {
   base_pintura: "",
   precio: "",
@@ -31,6 +32,8 @@ const options2 = [
   { value: "Hierro ", text: "Hierro " },
 ];
 export default function ProductForm() {
+  const { state } = useLocation();
+
   const [values, setValues] = useState(initialValues);
   const [selected, setSelected] = useState(options[0].value);
   const [selected2, setSelected2] = useState(options2[0].value);
@@ -38,8 +41,18 @@ export default function ProductForm() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (state != null) {
+      const { id } = state; // Read values passed on state
+      getProductoData(id).then((product) => {
+        setValues(product);
+        setSelected(product.base_pintura);
+        setSelected2(product.area_aplicacion);
+      });
+    }
+  }, []);
+
   const handleInputChange = (e) => {
-    console.log(error.errors);
     if (e.target.name === "base_pintura") {
       setSelected(e.target.value);
     }
@@ -109,12 +122,17 @@ export default function ProductForm() {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     if (handleValidation()) {
+      if (state != null) {
+        const { id } = state; // Read values passed on state
+        setValues((prevValues) => [{ id_producto: id }, ...prevValues]);
+        console.log(editProduct(values));
+      } else {
+        addProduct(values);
+      }
       console.log(values);
-      addProduct(values);
+
       navigate("/productos");
     }
-    /*
-     */
   };
 
   return (
@@ -225,8 +243,7 @@ export default function ProductForm() {
           />
 
           <button class="next action-button" disabled={false}>
-            {" "}
-            Registrar{" "}
+            {!state ? <a>Registrar</a> : <a>Actualizar</a>}
           </button>
         </fieldset>
       </form>

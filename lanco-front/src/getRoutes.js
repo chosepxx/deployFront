@@ -6,7 +6,7 @@ import DataTableMUI from "./component/table";
 import { ProductList } from "./component/ProductList";
 import ProductForm from "./component/ProductForm";
 import FormPropsTextFields from "./component/RegisterForm";
-import ProductEdit from "./component/ProductEdit";
+
 import NavBar from "./component/navbar";
 function GetRoutes() {
   return (
@@ -19,7 +19,6 @@ function GetRoutes() {
         <Route path="/productForm" element={<ProductForm />} />
         <Route path="/registerForm" element={<FormPropsTextFields />} />
         <Route path="actualizar/:id" element={<FormPropsTextFields />} />
-        <Route path="/productEdit" element={<ProductEdit />} />
       </Routes>
     </Router>
   );

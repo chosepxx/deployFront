@@ -32,7 +32,7 @@ export function ProductList() {
   const editRow = (row) => {
     console.log("editando ", row);
 
-    navigate("/productEdit", {
+    navigate("/productForm", {
       state: {
         id: row.id,
       },
