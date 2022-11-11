@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
 import DataTableMUI from "./table";
-import FileCopyIcon from "@mui/icons-material/FileCopy";
-import FactCheckIcon from "@mui/icons-material/FactCheck";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { getProductos, deleteProduct } from "../services/ProductService";
 import { useNavigate } from "react-router-dom";
 
 export function ProductList() {
   const [rows, setRows] = useState([]);
-  const [update, setUpdate] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+
   const navigate = useNavigate();
   useEffect(() => {
     getProductos().then((product) => {
@@ -19,9 +15,9 @@ export function ProductList() {
         return { id, ...rest };
       });
 
-      setProducts(newColumns);
       console.log(newColumns);
       setRows(newColumns);
+      setLoaded(true);
     });
   }, []);
 
@@ -56,15 +52,15 @@ export function ProductList() {
       type: "text",
       width: 90,
     },
-    { field: "base_pintura", headerName: "base_pintura", width: 130 },
-    { field: "area_aplicacion", headerName: "area_aplicacion", width: 130 },
-    { field: "color_pintura", headerName: "color_pintura", width: 90 },
-    { field: "fecha_caducidad", headerName: "fecha_caducidad", width: 90 },
-    { field: "marca", headerName: "marca", width: 90 },
+    { field: "base_pintura", headerName: "Base", width: 130 },
+    { field: "area_aplicacion", headerName: "Area Aplic", width: 130 },
+    { field: "color_pintura", headerName: "Color", width: 90 },
+    { field: "fecha_caducidad", headerName: "Caduca", width: 90 },
+    { field: "marca", headerName: "Marca", width: 90 },
     { field: "precio", headerName: "Precio", type: "number", width: 90 },
     {
       field: "cantidad_stock",
-      headerName: "cantidad_stock",
+      headerName: "Stock",
       type: "number",
       width: 90,
     },
@@ -73,7 +69,8 @@ export function ProductList() {
   return (
     <div>
       <h1>Listado de Productos</h1>
-      {rows.length > 0 ? (
+
+      {loaded ? (
         <DataTableMUI
           rows={rows}
           columns={columns}
