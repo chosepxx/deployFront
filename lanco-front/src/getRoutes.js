@@ -20,7 +20,6 @@ function GetRoutes() {
         <Route path="/productForm" element={<ProductForm />} />
         <Route path="/registerForm" element={<FormPropsTextFields />} />
         <Route path="/actualizar" element={<FormPropsTextFields />} />
-        <Route path="/productEdit" element={<ProductEdit />} />
       </Routes>
     </Router>
   );

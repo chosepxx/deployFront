@@ -72,8 +72,37 @@ export default function DataTableMUI(props) {
 
   const showRow = (event, row) => {
     console.log(`Show ${JSON.stringify(row)}`);
+    const keys = [];
+    const data = [];
+    const fdata = [];
+    for (var key in row) {
+      keys.push(key);
+      data.push(row[key]);
+    }
+    console.log(fdata);
+    setShowData(
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Datos</th>
+            </tr>
+          </thead>
+          <tbody>
+            {keys.map((v, index) => {
+              return (
+                <tr>
+                  <td>{keys[index]}</td>
+                  <td>{data[index]}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
 
-    setShowData(row.id);
     openModal();
   };
 
@@ -132,7 +161,7 @@ export default function DataTableMUI(props) {
     <div>
       <Modal show={isOpen} onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Detalles</Modal.Title>
         </Modal.Header>
         <Modal.Body>{showData}</Modal.Body>
         <Modal.Footer>
