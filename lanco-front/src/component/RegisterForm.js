@@ -16,7 +16,6 @@ function RegisterForm() {
   const [empleado, setEmpleado] = useState([]);
   const { state } = useLocation();
   const { id } = state; // Read values passed on state
- 
 
   useEffect(() => {
     getProductos().then((product) => {
@@ -30,15 +29,13 @@ function RegisterForm() {
       setClient(client);
     });
     if (id) {
-      console.log("mae si")
+      console.log("mae si");
       buscar_id(id).then((record) => {
         setRecordAdd(record);
       });
     }
-
   }, []);
 
- 
   const empleadoC = () => {
     return empleado.map((data) => ({
       value: data.id_empleado,
@@ -60,132 +57,118 @@ function RegisterForm() {
     }));
   };
 
-
   const handleChangeSelect = (event, name) => {
     const value = event.value;
     console.log(value);
-    setRecordAdd({...recordAdd, [name]: value });
-    
+    setRecordAdd({ ...recordAdd, [name]: value });
   };
 
   const handleChange = (event) => {
     const value = event.target.value;
     const name = event.target.name;
-    setRecordAdd({...recordAdd, [name]: value });
-  
+    setRecordAdd({ ...recordAdd, [name]: value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(id){
+    if (id) {
       actualizar(recordAdd);
-    }
-    else{
-
-      recordAdd.fecha_compra=moment().format("YY-MM-DD");
+    } else {
+      recordAdd.fecha_compra = moment().format("YY-MM-DD");
       agregar(recordAdd);
-
     }
- 
   };
-  
 
   return (
     <React.Fragment>
-      <div className="container-fluid">
-        <div className="mt-5 card col-md-4 mx-auto">
-          <div className="card-body">
-            <h5 className="card-title">Registro de pintura preparada</h5>
+      <div>
+        <form id="msform" onSubmit={handleSubmit}>
+          <fieldset>
+            <div>
+              <label htmlFor="">Nombre del empleado</label>
+              <Select
+                options={empleadoC()}
+                onChange={(event) => handleChangeSelect(event, "id_empleado")}
+                defaultValue={recordAdd.id_empleado}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="">Nombre del cliente</label>
+              <Select
+                options={clientC()}
+                onChange={(event) => handleChangeSelect(event, "id_cliente")}
+                name="id_cliente"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="">Color pintura</label>
+              <Select
+                options={productoC()}
+                onChange={(event) => handleChangeSelect(event, "id_producto")}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="">Base de la pintura</label>
+              <input
+                type="text"
+                className="form-control"
+                name="base"
+                placeholder=""
+                onChange={handleChange}
+                defaultValue={recordAdd.base}
+                required
+              ></input>
+            </div>
+            <div>
+              <label htmlFor="">Acabado de la pintura</label>
+              <input
+                type="text"
+                className="form-control"
+                name="acabado"
+                placeholder=""
+                onChange={handleChange}
+                defaultValue={recordAdd.acabado}
+                required
+              ></input>
+            </div>
+            <div>
+              <label htmlFor="">Formula del color</label>
+              <input
+                type="text"
+                className="form-control"
+                name="formula_color"
+                placeholder="cod_ko4"
+                onChange={handleChange}
+                defaultValue={recordAdd.formula_color}
+                required
+              ></input>
+            </div>
+            <div>
+              <label htmlFor="">Tamaño del envase</label>
+              <select
+                name="tamano_envase"
+                onChange={handleChange}
+                className="form-control"
+                value={recordAdd.tamano_envase}
+                required
+              >
+                <option value="Cuarto del galón">Cuarto del galón</option>
+                <option value="Medio de galón">Cuarto de galón</option>
+                <option value="Galón">Galón</option>
+                <option value="Cubeta">Cubeta</option>
+              </select>
+            </div>
             <br></br>
-            <form onSubmit={handleSubmit} >
-           
-                <div className="form-group">
-                  <label htmlFor="">Nombre del empleado</label>
-                  <Select
-                    options={empleadoC()}
-                    onChange={(event) => handleChangeSelect(event, "id_empleado")}
-                    defaultValue={recordAdd.id_empleado}
-                    required
-                 
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="">Nombre del cliente</label>
-                  <Select
-                    options={clientC()}
-                    onChange={(event) => handleChangeSelect(event, "id_cliente")}
-                    name="id_cliente"
-                    required
-                   
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="">Color pintura</label>
-                  <Select
-                    options={productoC()}
-                    onChange={(event) => handleChangeSelect(event, "id_producto")}
-                    required
-
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="">Base de la pintura</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="base"
-                    placeholder=""
-                    onChange={handleChange}
-                    defaultValue={recordAdd.base}
-                    required
-                  ></input>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="">Acabado de la pintura</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="acabado"
-                    placeholder=""
-                    onChange={handleChange}
-                    defaultValue={recordAdd.acabado}
-                    required
-                  ></input>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="">Formula del color</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="formula_color"
-                    placeholder="cod_ko4"
-                    onChange={handleChange}
-                    defaultValue={recordAdd.formula_color}
-                    required
-                  ></input>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="">Tamaño del envase</label>
-                  <select name="tamano_envase" onChange={handleChange} className="form-control" value={recordAdd.tamano_envase} required>
-                    <option value="Cuarto del galón">Cuarto del galón</option>
-                    <option value="Medio de galón">Cuarto de galón</option>
-                    <option value="Galón">Galón</option>
-                    <option value="Cubeta">Cubeta</option>
-                  </select>
-                </div>
-                <br></br>
-                <div className="form-group">
-                  <button
-                    type="submit"
-                    className=" ml-1 btn btn-primary"
-                    id="save"
-                  >
-                    Guardar
-                  </button>
-                </div>
-            </form>
-          </div>
-        </div>
+            <div>
+              <button type="submit" class="next action-button" id="save">
+                Guardar
+              </button>
+            </div>
+          </fieldset>
+        </form>
       </div>
     </React.Fragment>
   );
