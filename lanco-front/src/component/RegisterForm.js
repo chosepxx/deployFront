@@ -10,7 +10,6 @@ import moment from "moment";
 import { useParams, useLocation } from "react-router-dom";
 
 function RegisterForm() {
-  const [record, setRecord] = useState([RegisterModel]);
   const [recordAdd, setRecordAdd] = useState(RegisterModel);
   const [product, setProduct] = useState([]);
   const [client, setClient] = useState([]);
@@ -33,9 +32,8 @@ function RegisterForm() {
     if (id) {
       console.log("mae si")
       buscar_id(id).then((record) => {
-        setRecord(record);
+        setRecordAdd(record);
       });
-       setRecordAdd(record[0])
     }
 
   }, []);
