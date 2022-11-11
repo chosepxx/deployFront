@@ -105,6 +105,7 @@ function RegisterForm() {
                     options={empleadoC()}
                     onChange={(event) => handleChangeSelect(event, "id_empleado")}
                     defaultValue={recordAdd.id_empleado}
+                    required
                  
                   />
                 </div>
@@ -114,6 +115,7 @@ function RegisterForm() {
                     options={clientC()}
                     onChange={(event) => handleChangeSelect(event, "id_cliente")}
                     name="id_cliente"
+                    required
                    
                   />
                 </div>
@@ -122,6 +124,7 @@ function RegisterForm() {
                   <Select
                     options={productoC()}
                     onChange={(event) => handleChangeSelect(event, "id_producto")}
+                    required
 
                   />
                 </div>
@@ -134,7 +137,7 @@ function RegisterForm() {
                     placeholder=""
                     onChange={handleChange}
                     defaultValue={recordAdd.base}
-                    hidden={false}
+                    required
                   ></input>
                 </div>
                 <div className="form-group">
@@ -146,6 +149,7 @@ function RegisterForm() {
                     placeholder=""
                     onChange={handleChange}
                     defaultValue={recordAdd.acabado}
+                    required
                   ></input>
                 </div>
                 <div className="form-group">
@@ -157,11 +161,12 @@ function RegisterForm() {
                     placeholder="cod_ko4"
                     onChange={handleChange}
                     defaultValue={recordAdd.formula_color}
+                    required
                   ></input>
                 </div>
                 <div className="form-group">
                   <label htmlFor="">Tamaño del envase</label>
-                  <select name="tamano_envase" onChange={handleChange} className="form-control" value={recordAdd.tamano_envase}>
+                  <select name="tamano_envase" onChange={handleChange} className="form-control" value={recordAdd.tamano_envase} required>
                     <option value="Cuarto del galón">Cuarto del galón</option>
                     <option value="Medio de galón">Cuarto de galón</option>
                     <option value="Galón">Galón</option>

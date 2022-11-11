@@ -7,7 +7,6 @@ import { ProductList } from "./component/ProductList";
 import ProductForm from "./component/ProductForm";
 import FormPropsTextFields from "./component/RegisterForm";
 
-import RegisterEdit from "./component/RegisterEdit";
 import NavBar from "./component/navbar";
 function GetRoutes() {
   return (
