@@ -8,6 +8,7 @@ import { agregar } from "../services/RegisterServices";
 import Select from "react-select";
 import moment from "moment";
 import { useParams, useLocation } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function RegisterForm() {
   const [recordAdd, setRecordAdd] = useState(RegisterModel);
@@ -15,7 +16,8 @@ function RegisterForm() {
   const [client, setClient] = useState([]);
   const [empleado, setEmpleado] = useState([]);
   const { state } = useLocation();
-  const { id } = state; // Read values passed on state
+  const { id } = state; 
+  const navigate = useNavigate();
 
   useEffect(() => {
     getProductos().then((product) => {
@@ -77,6 +79,8 @@ function RegisterForm() {
       recordAdd.fecha_compra = moment().format("YY-MM-DD");
       agregar(recordAdd);
     }
+
+    navigate("/registros");
   };
 
   return (

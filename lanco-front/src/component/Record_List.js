@@ -17,12 +17,7 @@ export function Record_List() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getRegister().then((product) => {
-      const newColumns = product.map((item) => {
-        const { id_registro: id, ...rest } = item;
-        return { id, ...rest };
-      });
-
+    getRegister().then((register) => {
       getProductos().then((product) => {
         setProduct(product);
         console.log("ujale");
@@ -35,6 +30,14 @@ export function Record_List() {
         setClient(client);
         console.log("mmeme");
       });
+
+      const newColumns = register.map((item) => {
+        const { id_registro: id, ...rest } = item;
+        return { id, ...rest };
+        
+      });
+
+      
       setLoaded(true);
       setRows(newColumns);
     });
@@ -80,7 +83,6 @@ export function Record_List() {
     for (var cl of client) {
       if (rec.id_cliente === cl.id_cliente) {
         rec.nombre_cliente = cl.nombre;
-        console.log("HOLIIIIIIIIII" + rec.nombre_cliente);
       }
     }
   }
