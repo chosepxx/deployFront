@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { getRegister, eliminar } from "../services/RegisterServices";
-import { RegisterModel } from "../models/register";
-import { getProductos } from "../services/ProductService";
-import { getCLient } from "../services/ClientService";
-import { getEmpleado } from "../services/EmpleadoService";
-import DataTableMUI from "./table";
+import { Registe } from "./registerModel";
+import { getRegister } from "../../services/RegisterServices";
+import { eliminar } from "./servicesExa";
+import { getProductos } from "../../services/ProductService";
+import { getCLient } from "../../services/ClientService";
+import { getEmpleado } from "../../services/EmpleadoService";
+import { getAltaCalidad } from "./servicesExa";
+import DataTableMUI from "../table";
 
-export function Record_List() {
-  const [record, setRecord] = useState([RegisterModel]);
+export function ListComposite() {
+  const [record, setRecord] = useState([Registe()]);
   const [product, setProduct] = useState([]);
   const [client, setClient] = useState([]);
   const [empleado, setEmpleado] = useState([]);
@@ -17,7 +19,7 @@ export function Record_List() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getRegister().then((register) => {
+    getAltaCalidad().then((register) => {
       getProductos().then((product) => {
         setProduct(product);
         console.log("ujale");
@@ -42,7 +44,6 @@ export function Record_List() {
       setRows(newColumns);
     });
   }, []);
-
   const showRow = (event, row) => {
     console.log(`Show ${JSON.stringify(row)}`);
   };
@@ -61,7 +62,7 @@ export function Record_List() {
     //    navigate("/registerForm");
 
     ///registerForm
-    navigate("/registerForm", {
+    navigate("/sheExamen", {
       state: {
         id: null,
       },
@@ -112,15 +113,36 @@ export function Record_List() {
     {
       field: "formula_color",
       headerName: "formula_color",
-      type: "number",
-      width: 90,
+      width: 90
     },
     {
-      field: "tamano_envase",
-      headerName: "tamano_envase",
-      type: "number",
+      field: "precio",
+      headerName: "precio",
       width: 90,
     },
+
+    {
+        field: "duracion_pp",
+        headerName: "duracion_pp",
+        width: 90
+      },
+      {
+        field: "area_Aplicacion",
+        headerName: "area_Aplicacion",
+        width: 90
+      },
+
+      {
+        field: "alta_calidad",
+        headerName: "alta_calidad",
+        width: 90
+      },
+
+      {
+        field: "porcentaje_calidad",
+        headerName: "porcentaje_calidad",
+        width: 90
+      },
   ];
 
   {
@@ -152,14 +174,11 @@ export function Record_List() {
     }
   }
 
-  function deleteRegister(id) {
-    console.log("HOLAAAAAA" + id);
-    eliminar(id);
-  }
 
   return (
     <div>
       <h1>Listado de Registros</h1>
+      <Link className="button button-azul" to={'/composite'}>COMPOSITE Y BUILDER</Link>
       {loaded ? (
         <DataTableMUI
           rows={rows}

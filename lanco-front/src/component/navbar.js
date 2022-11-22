@@ -34,12 +34,18 @@ function NavBar() {
             </li>
             <li className="nav-item">
               <a className="nav-link" href={"/registros"}>
-                Registos
+                Registros
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link " href={"http:/.com"}>
                 Empleados
+              </a>
+            </li>
+
+            <li className="nav-item">
+              <a className="nav-link " href={"/indexExamCompo"}>
+                Examen Shesly
               </a>
             </li>
           </ul>
