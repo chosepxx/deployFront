@@ -4,7 +4,7 @@ export function getProductos() {
   const options = {
     method: "GET",
     withCredentials: false,
-    url: "http://localhost/proyecto-lanco-codigo/controller_productos.php",
+    url: "http://10.44.128.91/proyecto-lanco-codigo/controller_productos.php",
   };
 
   return axios
@@ -23,7 +23,7 @@ export function getProductoData(id) {
     method: "GET",
     withCredentials: false,
     url:
-      "http://localhost/proyecto-lanco-codigo/controller_productos.php?id=" +
+      "http://10.44.128.91/proyecto-lanco-codigo/controller_productos.php?id=" +
       id,
   };
 
@@ -38,11 +38,12 @@ export function getProductoData(id) {
     });
 }
 export function deleteProduct(id) {
-  const url = "http://localhost/proyecto-lanco-codigo/controller_productos.php";
+  const url =
+    "http://10.44.128.91/proyecto-lanco-codigo/controller_productos.php";
   const options = {
     method: "DELETE",
     withCredentials: false,
-    url: "http://localhost/proyecto-lanco-codigo/controller_productos.php",
+    url: "http://10.44.128.91/proyecto-lanco-codigo/controller_productos.php",
     data: { id_producto: id },
   };
 
@@ -59,11 +60,12 @@ export function deleteProduct(id) {
 
 export function addProduct(datas) {
   console.log(datas);
-  const url = "http://localhost/proyecto-lanco-codigo/controller_productos.php";
+  const url =
+    "http://10.44.128.91/proyecto-lanco-codigo/controller_productos.php";
   const options = {
     method: "POST",
     withCredentials: false,
-    url: "http://localhost/proyecto-lanco-codigo/controller_productos.php",
+    url: "http://10.44.128.91/proyecto-lanco-codigo/controller_productos.php",
     data: datas,
   };
 
@@ -82,7 +84,7 @@ export function editProduct(datas) {
   const options = {
     method: "PUT",
     withCredentials: false,
-    url: "http://localhost/proyecto-lanco-codigo/controller_productos.php",
+    url: "http://10.44.128.91/proyecto-lanco-codigo/controller_productos.php",
     data: datas,
   };
   console.log(options);

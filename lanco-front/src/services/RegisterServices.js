@@ -4,7 +4,7 @@ export function getRegister() {
   const options = {
     method: "GET",
     withCredentials: false,
-    url: "http://localhost/proyecto-lanco-codigo/controller_registro.php",
+    url: "http://10.44.128.91/proyecto-lanco-codigo/controller_registro.php",
   };
 
   return axios
@@ -23,7 +23,7 @@ export function eliminar(id) {
   const options = {
     method: "DELETE",
     withCredentials: false,
-    url: "http://localhost/proyecto-lanco-codigo/controller_registro.php",
+    url: "http://10.44.128.91/proyecto-lanco-codigo/controller_registro.php",
     data: object,
   };
 
@@ -39,11 +39,12 @@ export function eliminar(id) {
 }
 
 export function buscar_id(id) {
-
   const options = {
     method: "GET",
     withCredentials: false,
-    url: "http://localhost/proyecto-lanco-codigo/controller_registro.php?id="+id,
+    url:
+      "http://10.44.128.91/proyecto-lanco-codigo/controller_registro.php?id=" +
+      id,
   };
 
   return axios
@@ -58,13 +59,12 @@ export function buscar_id(id) {
 }
 
 export function agregar(registro) {
+  console.log(registro.id_cliente + "   " + registro.id_producto + " ");
 
-  console.log(registro.id_cliente+"   "+registro.id_producto+" ")
-  
   const options = {
     method: "POST",
     withCredentials: false,
-    url: "http://localhost/proyecto-lanco-codigo/controller_registro.php",
+    url: "http://10.44.128.91/proyecto-lanco-codigo/controller_registro.php",
     data: registro,
   };
 
@@ -80,11 +80,11 @@ export function agregar(registro) {
 }
 
 export function actualizar(registro) {
-  console.log(registro.id_cliente+"  "+registro.fecha_compra)
+  console.log(registro.id_cliente + "  " + registro.fecha_compra);
   const options = {
     method: "PUT",
     withCredentials: false,
-    url: "http://localhost/proyecto-lanco-codigo/controller_registro.php",
+    url: "http://10.44.128.91/proyecto-lanco-codigo/controller_registro.php",
     data: registro,
   };
 
